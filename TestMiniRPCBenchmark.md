@@ -43,4 +43,4 @@ public static boolean isSecurityEnabled() {
     return !isAuthenticationMethodEnabled(AuthenticationMethod.SIMPLE);
   }
 ```
-In this case, if I change "simple" to any other worlds, this test will fail.
+In this case, if I change "simple" to any other words, this test will fail.
