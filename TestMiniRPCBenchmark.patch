@@ -1,0 +1,17 @@
+diff --git a/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/ipc/TestMiniRPCBenchmark.java b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/ipc/TestMiniRPCBenchmark.java
+index a130fa9757a..6bbe99d2389 100644
+--- a/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/ipc/TestMiniRPCBenchmark.java
++++ b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/ipc/TestMiniRPCBenchmark.java
+@@ -32,4 +32,12 @@ public void testSimple() throws Exception {
+     MiniRPCBenchmark mb = new MiniRPCBenchmark(Level.DEBUG);
+     mb.runMiniBenchmark(conf, 10, null, null);
+   }
++
++  @Test
++  public void testSimple1() throws Exception {
++    Configuration conf = new Configuration();
++    conf.set("hadoop.security.authentication", "complex");
++    MiniRPCBenchmark mb = new MiniRPCBenchmark(Level.DEBUG);
++    mb.runMiniBenchmark(conf, 10, null, null);
++  }
+ }

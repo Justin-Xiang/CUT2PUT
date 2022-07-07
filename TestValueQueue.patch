@@ -1,0 +1,39 @@
+diff --git a/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/crypto/key/TestValueQueue.java b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/crypto/key/TestValueQueue.java
+index 9b8638faa4b..a717d7d6dc7 100644
+--- a/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/crypto/key/TestValueQueue.java
++++ b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/crypto/key/TestValueQueue.java
+@@ -88,6 +88,34 @@ public void testInitFill() throws Exception {
+     vq.shutdown();
+   }
+ 
++  /**
++   * Verifies that Queue is initially filled to "numInitValues"
++   */
++  @Test(timeout=30000)
++  public void testInitFill1() throws Exception {
++    MockFiller filler = new MockFiller();
++    ValueQueue<String> vq =
++        new ValueQueue<String>(-1, 0.1f, 30000, 1,
++            SyncGenerationPolicy.ALL, filler);
++    Assert.assertEquals("test", vq.getNext("k1"));
++    Assert.assertEquals(1, filler.getTop().num);
++    vq.shutdown();
++  }
++
++  /**
++   * Verifies that Queue is initially filled to "numInitValues"
++   */
++  @Test(timeout=30000)
++  public void testInitFill2() throws Exception {
++    MockFiller filler = new MockFiller();
++    ValueQueue<String> vq =
++        new ValueQueue<String>(-1, 2, 30000, 1,
++            SyncGenerationPolicy.ALL, filler);
++    Assert.assertEquals("test", vq.getNext("k1"));
++    Assert.assertEquals(1, filler.getTop().num);
++    vq.shutdown();
++  }
++
+   /**
+    * Verifies that Queue is initialized (Warmed-up) for provided keys
+    */

@@ -1,0 +1,31 @@
+diff --git a/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/ipc/TestDecayRpcScheduler.java b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/ipc/TestDecayRpcScheduler.java
+index 3b8c58c26d6..1daf9f7588a 100644
+--- a/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/ipc/TestDecayRpcScheduler.java
++++ b/hadoop-common-project/hadoop-common/src/test/java/org/apache/hadoop/ipc/TestDecayRpcScheduler.java
+@@ -77,6 +77,26 @@ public void testParsePeriod() {
+     assertEquals(1058L, scheduler.getDecayPeriodMillis());
+   }
+ 
++  @Test
++  @SuppressWarnings("deprecation")
++  public void testParsePeriod1() {
++    // By default
++    scheduler = new DecayRpcScheduler(0, "ipc.1", new Configuration());
++    assertEquals(DecayRpcScheduler.IPC_SCHEDULER_DECAYSCHEDULER_PERIOD_DEFAULT,
++      scheduler.getDecayPeriodMillis());
++  }
++
++  @Test
++  @SuppressWarnings("deprecation")
++  public void testParsePeriod2() {
++    // Custom
++    Configuration conf = new Configuration();
++    conf.setLong("ipc.2." + DecayRpcScheduler.IPC_FCQ_DECAYSCHEDULER_PERIOD_KEY,
++      -100);
++    scheduler = new DecayRpcScheduler(1, "ipc.2", conf);
++    assertEquals(1058L, scheduler.getDecayPeriodMillis());
++  }
++
+   @Test
+   @SuppressWarnings("deprecation")
+   public void testParseFactor() {
